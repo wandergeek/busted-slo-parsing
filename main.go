@@ -11,6 +11,7 @@ func main() {
 
 	var slo sloModel.CreateSloRequest
 
+	//from https://github.com/elastic/kibana/blob/main/x-pack/plugins/observability/dev_docs/slo.md#latency
 	data := []byte(`{
 		"name": "My SLO Name",
 		"description": "My SLO Description",
