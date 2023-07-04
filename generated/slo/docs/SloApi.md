@@ -1,17 +1,17 @@
-# \SlosApi
+# \SloApi
 
 All URIs are relative to *http://localhost:5601*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSlo**](SlosApi.md#CreateSlo) | **Post** /s/{spaceId}/api/observability/slos | Creates an SLO.
-[**DeleteSlo**](SlosApi.md#DeleteSlo) | **Delete** /s/{spaceId}/api/observability/slos/{sloId} | Deletes an SLO
-[**DisableSlo**](SlosApi.md#DisableSlo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/disable | Disables an SLO
-[**EnableSlo**](SlosApi.md#EnableSlo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/enable | Enables an SLO
-[**FindSlos**](SlosApi.md#FindSlos) | **Get** /s/{spaceId}/api/observability/slos | Retrieves a paginated list of SLOs
-[**GetSlo**](SlosApi.md#GetSlo) | **Get** /s/{spaceId}/api/observability/slos/{sloId} | Retrieves a SLO
-[**HistoricalSummary**](SlosApi.md#HistoricalSummary) | **Post** /s/{spaceId}/internal/observability/slos/_historical_summary | Retrieves the historical summary for a list of SLOs
-[**UpdateSlo**](SlosApi.md#UpdateSlo) | **Put** /s/{spaceId}/api/observability/slos/{sloId} | Updates an SLO
+[**CreateSlo**](SloApi.md#CreateSlo) | **Post** /s/{spaceId}/api/observability/slos | Creates an SLO.
+[**DeleteSlo**](SloApi.md#DeleteSlo) | **Delete** /s/{spaceId}/api/observability/slos/{sloId} | Deletes an SLO
+[**DisableSlo**](SloApi.md#DisableSlo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/disable | Disables an SLO
+[**EnableSlo**](SloApi.md#EnableSlo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/enable | Enables an SLO
+[**FindSlos**](SloApi.md#FindSlos) | **Get** /s/{spaceId}/api/observability/slos | Retrieves a paginated list of SLOs
+[**GetSlo**](SloApi.md#GetSlo) | **Get** /s/{spaceId}/api/observability/slos/{sloId} | Retrieves a SLO
+[**HistoricalSummary**](SloApi.md#HistoricalSummary) | **Post** /s/{spaceId}/internal/observability/slos/_historical_summary | Retrieves the historical summary for a list of SLOs
+[**UpdateSlo**](SloApi.md#UpdateSlo) | **Put** /s/{spaceId}/api/observability/slos/{sloId} | Updates an SLO
 
 
 
@@ -38,17 +38,17 @@ import (
 func main() {
     kbnXsrf := "kbnXsrf_example" // string | Cross-site request forgery protection
     spaceId := "default" // string | An identifier for the space. If `/s/` and the identifier are omitted from the path, the default space is used.
-    createSloRequest := *openapiclient.NewCreateSloRequest("Name_example", "Description_example", openapiclient.slo_response_indicator{IndicatorPropertiesApmAvailability: openapiclient.NewIndicatorPropertiesApmAvailability(*openapiclient.NewIndicatorPropertiesApmAvailabilityParams("o11y-app", "production", "request", "GET /my/api", "metrics-apm*,apm*"), "sli.apm.transactionDuration")}, openapiclient.slo_response_timeWindow{TimeWindowCalendarAligned: openapiclient.NewTimeWindowCalendarAligned("1M", *openapiclient.NewTimeWindowCalendarAlignedCalendar())}, openapiclient.budgeting_method("occurrences"), *openapiclient.NewObjective(float32(0.99))) // CreateSloRequest | 
+    createSloRequest := *openapiclient.NewCreateSloRequest("Name_example", "Description_example", openapiclient.slo_response_indicator{IndicatorPropertiesApmAvailability: openapiclient.NewIndicatorPropertiesApmAvailability(*openapiclient.NewIndicatorPropertiesApmAvailabilityParams("o11y-app", "production", "request", "GET /my/api", "metrics-apm*,apm*"), "sli.apm.transactionDuration")}, openapiclient.slo_response_timeWindow{TimeWindowCalendarAligned: openapiclient.NewTimeWindowCalendarAligned("1M", true)}, openapiclient.budgeting_method("occurrences"), *openapiclient.NewObjective(float32(0.99))) // CreateSloRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SlosApi.CreateSlo(context.Background(), spaceId).KbnXsrf(kbnXsrf).CreateSloRequest(createSloRequest).Execute()
+    resp, r, err := apiClient.SloApi.CreateSlo(context.Background(), spaceId).KbnXsrf(kbnXsrf).CreateSloRequest(createSloRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.CreateSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.CreateSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateSlo`: CreateSloResponse
-    fmt.Fprintf(os.Stdout, "Response from `SlosApi.CreateSlo`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SloApi.CreateSlo`: %v\n", resp)
 }
 ```
 
@@ -116,9 +116,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SlosApi.DeleteSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
+    r, err := apiClient.SloApi.DeleteSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.DeleteSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.DeleteSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -189,9 +189,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SlosApi.DisableSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
+    r, err := apiClient.SloApi.DisableSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.DisableSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.DisableSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -262,9 +262,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SlosApi.EnableSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
+    r, err := apiClient.SloApi.EnableSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.EnableSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.EnableSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -335,18 +335,18 @@ func main() {
     indicatorTypes := []string{"Inner_example"} // []string | Filter by indicator type (optional)
     page := int32(1) // int32 | The page number to return (optional) (default to 1)
     perPage := int32(20) // int32 | The number of SLOs to return per page (optional) (default to 25)
-    sortBy := "name" // string | Sort by field (optional) (default to "name")
+    sortBy := "creationTime" // string | Sort by field (optional) (default to "creationTime")
     sortDirection := "asc" // string | Sort order (optional) (default to "asc")
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SlosApi.FindSlos(context.Background(), spaceId).KbnXsrf(kbnXsrf).Name(name).IndicatorTypes(indicatorTypes).Page(page).PerPage(perPage).SortBy(sortBy).SortDirection(sortDirection).Execute()
+    resp, r, err := apiClient.SloApi.FindSlos(context.Background(), spaceId).KbnXsrf(kbnXsrf).Name(name).IndicatorTypes(indicatorTypes).Page(page).PerPage(perPage).SortBy(sortBy).SortDirection(sortDirection).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.FindSlos``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.FindSlos``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `FindSlos`: FindSloResponse
-    fmt.Fprintf(os.Stdout, "Response from `SlosApi.FindSlos`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SloApi.FindSlos`: %v\n", resp)
 }
 ```
 
@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
  **indicatorTypes** | **[]string** | Filter by indicator type | 
  **page** | **int32** | The page number to return | [default to 1]
  **perPage** | **int32** | The number of SLOs to return per page | [default to 25]
- **sortBy** | **string** | Sort by field | [default to &quot;name&quot;]
+ **sortBy** | **string** | Sort by field | [default to &quot;creationTime&quot;]
  **sortDirection** | **string** | Sort order | [default to &quot;asc&quot;]
 
 ### Return type
@@ -419,13 +419,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SlosApi.GetSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
+    resp, r, err := apiClient.SloApi.GetSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.GetSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.GetSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSlo`: SloResponse
-    fmt.Fprintf(os.Stdout, "Response from `SlosApi.GetSlo`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SloApi.GetSlo`: %v\n", resp)
 }
 ```
 
@@ -494,13 +494,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SlosApi.HistoricalSummary(context.Background(), spaceId).KbnXsrf(kbnXsrf).HistoricalSummaryRequest(historicalSummaryRequest).Execute()
+    resp, r, err := apiClient.SloApi.HistoricalSummary(context.Background(), spaceId).KbnXsrf(kbnXsrf).HistoricalSummaryRequest(historicalSummaryRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.HistoricalSummary``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.HistoricalSummary``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `HistoricalSummary`: map[string][]HistoricalSummaryResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `SlosApi.HistoricalSummary`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SloApi.HistoricalSummary`: %v\n", resp)
 }
 ```
 
@@ -569,13 +569,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SlosApi.UpdateSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).UpdateSloRequest(updateSloRequest).Execute()
+    resp, r, err := apiClient.SloApi.UpdateSlo(context.Background(), spaceId, sloId).KbnXsrf(kbnXsrf).UpdateSloRequest(updateSloRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SlosApi.UpdateSlo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SloApi.UpdateSlo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateSlo`: SloResponse
-    fmt.Fprintf(os.Stdout, "Response from `SlosApi.UpdateSlo`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SloApi.UpdateSlo`: %v\n", resp)
 }
 ```
 

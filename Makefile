@@ -1,7 +1,7 @@
 .PHONY: generate-slo-client
-generate-slo-client: ## generate Kibana slo client
+generate-slo-client: 
 	@ docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
-		-i https://raw.githubusercontent.com/elastic/kibana/master/x-pack/plugins/observability/docs/openapi/slo/bundled.yaml \
+		-i https://raw.githubusercontent.com/elastic/kibana/main/x-pack/plugins/observability/docs/openapi/slo/bundled.yaml \
 		--skip-validate-spec \
 		--git-repo-id terraform-provider-elasticstack \
 		--git-user-id elastic \
