@@ -10,10 +10,12 @@ Errors:
 
 ```
 ❯ go run main.go 
-panic: unable to unmarshal data into slo.CreateSloRequest: data failed to match schemas in oneOf(SloResponseIndicator)
+matched IndicatorPropertiesApmAvailability
+matched IndicatorPropertiesApmLatency
+panic: unable to unmarshal data into slo.SloResponse: data matches more than one schema in oneOf(SloResponseIndicator)
 
 goroutine 1 [running]:
 main.main()
-        /Users/nick/work/busted-slo-parsing/main.go:39 +0x150
+        /Users/nick/work/busted-slo-parsing/main.go:149 +0x148
 exit status 2
 ```
