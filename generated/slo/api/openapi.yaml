@@ -1005,39 +1005,6 @@ components:
         example: 9c235211-6834-11ea-a78c-6feb38a34414
         type: string
       style: simple
-  responses:
-    slo_response:
-      content:
-        application/json:
-          schema:
-            properties:
-              id:
-                description: The identifier of the SLO.
-                example: 8853df00-ae2e-11ed-90af-09bb6422b258
-                type: string
-              name:
-                description: The name of the SLO.
-                example: My Service SLO
-                type: string
-              description:
-                description: The description of the SLO.
-                example: My SLO description
-                type: string
-              indicator:
-                discriminator:
-                  mapping:
-                    sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
-                    sli.apm.transactionErrorRate: '#/components/schemas/indicator_properties_apm_availability'
-                    sli.apm.transactionDuration: '#/components/schemas/indicator_properties_apm_latency'
-                    sli.metric.custom: '#/components/schemas/indicator_properties_custom_metric'
-                  propertyName: type
-                oneOf:
-                - $ref: '#/components/schemas/indicator_properties_custom_kql'
-                - $ref: '#/components/schemas/indicator_properties_apm_availability'
-                - $ref: '#/components/schemas/indicator_properties_apm_latency'
-                - $ref: '#/components/schemas/indicator_properties_custom_metric'
-            type: object
-      description: A response describing a single SLO resource
   schemas:
     time_window_rolling:
       description: Defines properties for rolling time window
@@ -2011,10 +1978,10 @@ components:
     slo_response_indicator:
       discriminator:
         mapping:
-          sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
           sli.apm.transactionErrorRate: '#/components/schemas/indicator_properties_apm_availability'
+          sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
           sli.apm.transactionDuration: '#/components/schemas/indicator_properties_apm_latency'
-          sli.metric.custom: '#/components/schemas/indicator_properties_custom_metric'
+          sli.apm.sli.metric.custom": '#/components/schemas/indicator_properties_custom_metric'
         propertyName: type
       oneOf:
       - $ref: '#/components/schemas/indicator_properties_custom_kql'

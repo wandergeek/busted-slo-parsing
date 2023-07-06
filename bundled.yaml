@@ -1339,6 +1339,13 @@ components:
           type: string
           example: My SLO description
         indicator:
+          discriminator:
+            propertyName: type
+            mapping:
+              sli.apm.transactionErrorRate: '#/components/schemas/indicator_properties_apm_availability'
+              sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
+              sli.apm.transactionDuration: '#/components/schemas/indicator_properties_apm_latency'
+              sli.apm.sli.metric.custom": '#/components/schemas/indicator_properties_custom_metric'
           oneOf:
             - $ref: '#/components/schemas/indicator_properties_custom_kql'
             - $ref: '#/components/schemas/indicator_properties_apm_availability'
