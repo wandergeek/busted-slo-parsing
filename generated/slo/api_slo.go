@@ -20,7 +20,7 @@ import (
 	"strings"
 )
 
-type SloApi interface {
+type SloAPI interface {
 
 	/*
 		CreateSlo Creates an SLO.
@@ -153,12 +153,12 @@ type SloApi interface {
 	UpdateSloExecute(r ApiUpdateSloRequest) (*SloResponse, *http.Response, error)
 }
 
-// SloApiService SloApi service
-type SloApiService service
+// SloAPIService SloAPI service
+type SloAPIService service
 
 type ApiCreateSloRequest struct {
 	ctx              context.Context
-	ApiService       SloApi
+	ApiService       SloAPI
 	kbnXsrf          *string
 	spaceId          string
 	createSloRequest *CreateSloRequest
@@ -188,7 +188,7 @@ You must have `all` privileges for the **SLOs** feature in the **Observability**
 	@param spaceId An identifier for the space. If `/s/` and the identifier are omitted from the path, the default space is used.
 	@return ApiCreateSloRequest
 */
-func (a *SloApiService) CreateSlo(ctx context.Context, spaceId string) ApiCreateSloRequest {
+func (a *SloAPIService) CreateSlo(ctx context.Context, spaceId string) ApiCreateSloRequest {
 	return ApiCreateSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -199,7 +199,7 @@ func (a *SloApiService) CreateSlo(ctx context.Context, spaceId string) ApiCreate
 // Execute executes the request
 //
 //	@return CreateSloResponse
-func (a *SloApiService) CreateSloExecute(r ApiCreateSloRequest) (*CreateSloResponse, *http.Response, error) {
+func (a *SloAPIService) CreateSloExecute(r ApiCreateSloRequest) (*CreateSloResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -207,7 +207,7 @@ func (a *SloApiService) CreateSloExecute(r ApiCreateSloRequest) (*CreateSloRespo
 		localVarReturnValue *CreateSloResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.CreateSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.CreateSlo")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -303,6 +303,17 @@ func (a *SloApiService) CreateSloExecute(r ApiCreateSloRequest) (*CreateSloRespo
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v Model409Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -330,7 +341,7 @@ func (a *SloApiService) CreateSloExecute(r ApiCreateSloRequest) (*CreateSloRespo
 
 type ApiDeleteSloRequest struct {
 	ctx        context.Context
-	ApiService SloApi
+	ApiService SloAPI
 	kbnXsrf    *string
 	spaceId    string
 	sloId      string
@@ -356,7 +367,7 @@ You must have the `write` privileges for the **SLOs** feature in the **Observabi
 	@param sloId An identifier for the slo.
 	@return ApiDeleteSloRequest
 */
-func (a *SloApiService) DeleteSlo(ctx context.Context, spaceId string, sloId string) ApiDeleteSloRequest {
+func (a *SloAPIService) DeleteSlo(ctx context.Context, spaceId string, sloId string) ApiDeleteSloRequest {
 	return ApiDeleteSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -366,14 +377,14 @@ func (a *SloApiService) DeleteSlo(ctx context.Context, spaceId string, sloId str
 }
 
 // Execute executes the request
-func (a *SloApiService) DeleteSloExecute(r ApiDeleteSloRequest) (*http.Response, error) {
+func (a *SloAPIService) DeleteSloExecute(r ApiDeleteSloRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.DeleteSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.DeleteSlo")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -465,6 +476,17 @@ func (a *SloApiService) DeleteSloExecute(r ApiDeleteSloRequest) (*http.Response,
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Model404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -483,7 +505,7 @@ func (a *SloApiService) DeleteSloExecute(r ApiDeleteSloRequest) (*http.Response,
 
 type ApiDisableSloRequest struct {
 	ctx        context.Context
-	ApiService SloApi
+	ApiService SloAPI
 	kbnXsrf    *string
 	spaceId    string
 	sloId      string
@@ -509,7 +531,7 @@ You must have the `write` privileges for the **SLOs** feature in the **Observabi
 	@param sloId An identifier for the slo.
 	@return ApiDisableSloRequest
 */
-func (a *SloApiService) DisableSlo(ctx context.Context, spaceId string, sloId string) ApiDisableSloRequest {
+func (a *SloAPIService) DisableSlo(ctx context.Context, spaceId string, sloId string) ApiDisableSloRequest {
 	return ApiDisableSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -519,14 +541,14 @@ func (a *SloApiService) DisableSlo(ctx context.Context, spaceId string, sloId st
 }
 
 // Execute executes the request
-func (a *SloApiService) DisableSloExecute(r ApiDisableSloRequest) (*http.Response, error) {
+func (a *SloAPIService) DisableSloExecute(r ApiDisableSloRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.DisableSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.DisableSlo")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -618,6 +640,17 @@ func (a *SloApiService) DisableSloExecute(r ApiDisableSloRequest) (*http.Respons
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Model404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -636,7 +669,7 @@ func (a *SloApiService) DisableSloExecute(r ApiDisableSloRequest) (*http.Respons
 
 type ApiEnableSloRequest struct {
 	ctx        context.Context
-	ApiService SloApi
+	ApiService SloAPI
 	kbnXsrf    *string
 	spaceId    string
 	sloId      string
@@ -662,7 +695,7 @@ You must have the `write` privileges for the **SLOs** feature in the **Observabi
 	@param sloId An identifier for the slo.
 	@return ApiEnableSloRequest
 */
-func (a *SloApiService) EnableSlo(ctx context.Context, spaceId string, sloId string) ApiEnableSloRequest {
+func (a *SloAPIService) EnableSlo(ctx context.Context, spaceId string, sloId string) ApiEnableSloRequest {
 	return ApiEnableSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -672,14 +705,14 @@ func (a *SloApiService) EnableSlo(ctx context.Context, spaceId string, sloId str
 }
 
 // Execute executes the request
-func (a *SloApiService) EnableSloExecute(r ApiEnableSloRequest) (*http.Response, error) {
+func (a *SloAPIService) EnableSloExecute(r ApiEnableSloRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.EnableSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.EnableSlo")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -771,6 +804,17 @@ func (a *SloApiService) EnableSloExecute(r ApiEnableSloRequest) (*http.Response,
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Model404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -789,7 +833,7 @@ func (a *SloApiService) EnableSloExecute(r ApiEnableSloRequest) (*http.Response,
 
 type ApiFindSlosRequest struct {
 	ctx            context.Context
-	ApiService     SloApi
+	ApiService     SloAPI
 	kbnXsrf        *string
 	spaceId        string
 	name           *string
@@ -855,7 +899,7 @@ You must have the `read` privileges for the **SLOs** feature in the **Observabil
 	@param spaceId An identifier for the space. If `/s/` and the identifier are omitted from the path, the default space is used.
 	@return ApiFindSlosRequest
 */
-func (a *SloApiService) FindSlos(ctx context.Context, spaceId string) ApiFindSlosRequest {
+func (a *SloAPIService) FindSlos(ctx context.Context, spaceId string) ApiFindSlosRequest {
 	return ApiFindSlosRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -866,7 +910,7 @@ func (a *SloApiService) FindSlos(ctx context.Context, spaceId string) ApiFindSlo
 // Execute executes the request
 //
 //	@return FindSloResponse
-func (a *SloApiService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse, *http.Response, error) {
+func (a *SloAPIService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -874,7 +918,7 @@ func (a *SloApiService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse,
 		localVarReturnValue *FindSloResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.FindSlos")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.FindSlos")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -897,7 +941,7 @@ func (a *SloApiService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse,
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "indicatorTypes", s.Index(i), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "indicatorTypes", s.Index(i).Interface(), "multi")
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "indicatorTypes", t, "multi")
@@ -991,6 +1035,17 @@ func (a *SloApiService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse,
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Model404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1018,7 +1073,7 @@ func (a *SloApiService) FindSlosExecute(r ApiFindSlosRequest) (*FindSloResponse,
 
 type ApiGetSloRequest struct {
 	ctx        context.Context
-	ApiService SloApi
+	ApiService SloAPI
 	kbnXsrf    *string
 	spaceId    string
 	sloId      string
@@ -1044,7 +1099,7 @@ You must have the `read` privileges for the **SLOs** feature in the **Observabil
 	@param sloId An identifier for the slo.
 	@return ApiGetSloRequest
 */
-func (a *SloApiService) GetSlo(ctx context.Context, spaceId string, sloId string) ApiGetSloRequest {
+func (a *SloAPIService) GetSlo(ctx context.Context, spaceId string, sloId string) ApiGetSloRequest {
 	return ApiGetSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1056,7 +1111,7 @@ func (a *SloApiService) GetSlo(ctx context.Context, spaceId string, sloId string
 // Execute executes the request
 //
 //	@return SloResponse
-func (a *SloApiService) GetSloExecute(r ApiGetSloRequest) (*SloResponse, *http.Response, error) {
+func (a *SloAPIService) GetSloExecute(r ApiGetSloRequest) (*SloResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1064,7 +1119,7 @@ func (a *SloApiService) GetSloExecute(r ApiGetSloRequest) (*SloResponse, *http.R
 		localVarReturnValue *SloResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.GetSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.GetSlo")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1156,6 +1211,17 @@ func (a *SloApiService) GetSloExecute(r ApiGetSloRequest) (*SloResponse, *http.R
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Model404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1183,7 +1249,7 @@ func (a *SloApiService) GetSloExecute(r ApiGetSloRequest) (*SloResponse, *http.R
 
 type ApiHistoricalSummaryRequest struct {
 	ctx                      context.Context
-	ApiService               SloApi
+	ApiService               SloAPI
 	kbnXsrf                  *string
 	spaceId                  string
 	historicalSummaryRequest *HistoricalSummaryRequest
@@ -1213,7 +1279,7 @@ You must have the `read` privileges for the **SLOs** feature in the **Observabil
 	@param spaceId An identifier for the space. If `/s/` and the identifier are omitted from the path, the default space is used.
 	@return ApiHistoricalSummaryRequest
 */
-func (a *SloApiService) HistoricalSummary(ctx context.Context, spaceId string) ApiHistoricalSummaryRequest {
+func (a *SloAPIService) HistoricalSummary(ctx context.Context, spaceId string) ApiHistoricalSummaryRequest {
 	return ApiHistoricalSummaryRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1224,7 +1290,7 @@ func (a *SloApiService) HistoricalSummary(ctx context.Context, spaceId string) A
 // Execute executes the request
 //
 //	@return map[string][]HistoricalSummaryResponseInner
-func (a *SloApiService) HistoricalSummaryExecute(r ApiHistoricalSummaryRequest) (*map[string][]HistoricalSummaryResponseInner, *http.Response, error) {
+func (a *SloAPIService) HistoricalSummaryExecute(r ApiHistoricalSummaryRequest) (*map[string][]HistoricalSummaryResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1232,7 +1298,7 @@ func (a *SloApiService) HistoricalSummaryExecute(r ApiHistoricalSummaryRequest) 
 		localVarReturnValue *map[string][]HistoricalSummaryResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.HistoricalSummary")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.HistoricalSummary")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1326,6 +1392,17 @@ func (a *SloApiService) HistoricalSummaryExecute(r ApiHistoricalSummaryRequest) 
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1344,7 +1421,7 @@ func (a *SloApiService) HistoricalSummaryExecute(r ApiHistoricalSummaryRequest) 
 
 type ApiUpdateSloRequest struct {
 	ctx              context.Context
-	ApiService       SloApi
+	ApiService       SloAPI
 	kbnXsrf          *string
 	spaceId          string
 	sloId            string
@@ -1376,7 +1453,7 @@ You must have the `write` privileges for the **SLOs** feature in the **Observabi
 	@param sloId An identifier for the slo.
 	@return ApiUpdateSloRequest
 */
-func (a *SloApiService) UpdateSlo(ctx context.Context, spaceId string, sloId string) ApiUpdateSloRequest {
+func (a *SloAPIService) UpdateSlo(ctx context.Context, spaceId string, sloId string) ApiUpdateSloRequest {
 	return ApiUpdateSloRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1388,7 +1465,7 @@ func (a *SloApiService) UpdateSlo(ctx context.Context, spaceId string, sloId str
 // Execute executes the request
 //
 //	@return SloResponse
-func (a *SloApiService) UpdateSloExecute(r ApiUpdateSloRequest) (*SloResponse, *http.Response, error) {
+func (a *SloAPIService) UpdateSloExecute(r ApiUpdateSloRequest) (*SloResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -1396,7 +1473,7 @@ func (a *SloApiService) UpdateSloExecute(r ApiUpdateSloRequest) (*SloResponse, *
 		localVarReturnValue *SloResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloApiService.UpdateSlo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SloAPIService.UpdateSlo")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1484,6 +1561,17 @@ func (a *SloApiService) UpdateSloExecute(r ApiUpdateSloRequest) (*SloResponse, *
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v Model401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Model403Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

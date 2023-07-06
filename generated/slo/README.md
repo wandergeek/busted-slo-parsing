@@ -77,19 +77,19 @@ All URIs are relative to *http://localhost:5601*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CompositeSloApi* | [**CreateCompositeSlo**](docs/CompositeSloApi.md#createcompositeslo) | **Post** /s/{spaceId}/api/observability/composite_slos | Creates a Composite SLO
-*CompositeSloApi* | [**DeleteCompositeSlo**](docs/CompositeSloApi.md#deletecompositeslo) | **Delete** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Deletes a composite SLO
-*CompositeSloApi* | [**FindCompositeSlo**](docs/CompositeSloApi.md#findcompositeslo) | **Get** /s/{spaceId}/api/observability/composite_slos | Retrieves a paginated list of composite SLOs with summary
-*CompositeSloApi* | [**GetCompositeSlo**](docs/CompositeSloApi.md#getcompositeslo) | **Get** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Retrieves a composite SLO
-*CompositeSloApi* | [**UpdateCompositeSlo**](docs/CompositeSloApi.md#updatecompositeslo) | **Put** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Updates a composite SLO
-*SloApi* | [**CreateSlo**](docs/SloApi.md#createslo) | **Post** /s/{spaceId}/api/observability/slos | Creates an SLO.
-*SloApi* | [**DeleteSlo**](docs/SloApi.md#deleteslo) | **Delete** /s/{spaceId}/api/observability/slos/{sloId} | Deletes an SLO
-*SloApi* | [**DisableSlo**](docs/SloApi.md#disableslo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/disable | Disables an SLO
-*SloApi* | [**EnableSlo**](docs/SloApi.md#enableslo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/enable | Enables an SLO
-*SloApi* | [**FindSlos**](docs/SloApi.md#findslos) | **Get** /s/{spaceId}/api/observability/slos | Retrieves a paginated list of SLOs
-*SloApi* | [**GetSlo**](docs/SloApi.md#getslo) | **Get** /s/{spaceId}/api/observability/slos/{sloId} | Retrieves a SLO
-*SloApi* | [**HistoricalSummary**](docs/SloApi.md#historicalsummary) | **Post** /s/{spaceId}/internal/observability/slos/_historical_summary | Retrieves the historical summary for a list of SLOs
-*SloApi* | [**UpdateSlo**](docs/SloApi.md#updateslo) | **Put** /s/{spaceId}/api/observability/slos/{sloId} | Updates an SLO
+*CompositeSloAPI* | [**CreateCompositeSlo**](docs/CompositeSloAPI.md#createcompositeslo) | **Post** /s/{spaceId}/api/observability/composite_slos | Creates a Composite SLO
+*CompositeSloAPI* | [**DeleteCompositeSlo**](docs/CompositeSloAPI.md#deletecompositeslo) | **Delete** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Deletes a composite SLO
+*CompositeSloAPI* | [**FindCompositeSlo**](docs/CompositeSloAPI.md#findcompositeslo) | **Get** /s/{spaceId}/api/observability/composite_slos | Retrieves a paginated list of composite SLOs with summary
+*CompositeSloAPI* | [**GetCompositeSlo**](docs/CompositeSloAPI.md#getcompositeslo) | **Get** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Retrieves a composite SLO
+*CompositeSloAPI* | [**UpdateCompositeSlo**](docs/CompositeSloAPI.md#updatecompositeslo) | **Put** /s/{spaceId}/api/observability/composite_slos/{compositeSloId} | Updates a composite SLO
+*SloAPI* | [**CreateSlo**](docs/SloAPI.md#createslo) | **Post** /s/{spaceId}/api/observability/slos | Creates an SLO.
+*SloAPI* | [**DeleteSlo**](docs/SloAPI.md#deleteslo) | **Delete** /s/{spaceId}/api/observability/slos/{sloId} | Deletes an SLO
+*SloAPI* | [**DisableSlo**](docs/SloAPI.md#disableslo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/disable | Disables an SLO
+*SloAPI* | [**EnableSlo**](docs/SloAPI.md#enableslo) | **Post** /s/{spaceId}/api/observability/slos/{sloId}/enable | Enables an SLO
+*SloAPI* | [**FindSlos**](docs/SloAPI.md#findslos) | **Get** /s/{spaceId}/api/observability/slos | Retrieves a paginated list of SLOs
+*SloAPI* | [**GetSlo**](docs/SloAPI.md#getslo) | **Get** /s/{spaceId}/api/observability/slos/{sloId} | Retrieves a SLO
+*SloAPI* | [**HistoricalSummary**](docs/SloAPI.md#historicalsummary) | **Post** /s/{spaceId}/internal/observability/slos/_historical_summary | Retrieves the historical summary for a list of SLOs
+*SloAPI* | [**UpdateSlo**](docs/SloAPI.md#updateslo) | **Put** /s/{spaceId}/api/observability/slos/{sloId} | Updates an SLO
 
 
 ## Documentation For Models
@@ -102,6 +102,7 @@ Class | Method | HTTP request | Description
  - [CreateCompositeSloRequest](docs/CreateCompositeSloRequest.md)
  - [CreateCompositeSloResponse](docs/CreateCompositeSloResponse.md)
  - [CreateSloRequest](docs/CreateSloRequest.md)
+ - [CreateSloRequestIndicator](docs/CreateSloRequestIndicator.md)
  - [CreateSloResponse](docs/CreateSloResponse.md)
  - [ErrorBudget](docs/ErrorBudget.md)
  - [FindCompositeSloResponse](docs/FindCompositeSloResponse.md)
@@ -121,6 +122,7 @@ Class | Method | HTTP request | Description
  - [IndicatorPropertiesCustomMetricParamsTotal](docs/IndicatorPropertiesCustomMetricParamsTotal.md)
  - [Model400Response](docs/Model400Response.md)
  - [Model401Response](docs/Model401Response.md)
+ - [Model403Response](docs/Model403Response.md)
  - [Model404Response](docs/Model404Response.md)
  - [Model409Response](docs/Model409Response.md)
  - [Objective](docs/Objective.md)
@@ -139,7 +141,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-
+Authentication schemes defined for the API:
 ### basicAuth
 
 - **Type**: HTTP basic authentication
@@ -154,7 +156,6 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 r, err := client.Service.Operation(auth, args)
 ```
 
-
 ### apiKeyAuth
 
 - **Type**: API key
@@ -162,6 +163,19 @@ r, err := client.Service.Operation(auth, args)
 - **Location**: HTTP header
 
 Note, each API key must be added to a map of `map[string]APIKey` where the key is: ApiKey and passed in as the auth context for each request.
+
+Example
+
+```golang
+auth := context.WithValue(
+		context.Background(),
+		sw.ContextAPIKeys,
+		map[string]sw.APIKey{
+			"ApiKey": {Key: "API_KEY_STRING"},
+		},
+	)
+r, err := client.Service.Operation(auth, args)
+```
 
 
 ## Documentation for Utility Methods

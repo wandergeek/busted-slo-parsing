@@ -15,44 +15,44 @@ import (
 	"fmt"
 )
 
-// SloResponseIndicator - struct for SloResponseIndicator
-type SloResponseIndicator struct {
+// CreateSloRequestIndicator - struct for CreateSloRequestIndicator
+type CreateSloRequestIndicator struct {
 	IndicatorPropertiesApmAvailability *IndicatorPropertiesApmAvailability
 	IndicatorPropertiesApmLatency      *IndicatorPropertiesApmLatency
 	IndicatorPropertiesCustomKql       *IndicatorPropertiesCustomKql
 	IndicatorPropertiesCustomMetric    *IndicatorPropertiesCustomMetric
 }
 
-// IndicatorPropertiesApmAvailabilityAsSloResponseIndicator is a convenience function that returns IndicatorPropertiesApmAvailability wrapped in SloResponseIndicator
-func IndicatorPropertiesApmAvailabilityAsSloResponseIndicator(v *IndicatorPropertiesApmAvailability) SloResponseIndicator {
-	return SloResponseIndicator{
+// IndicatorPropertiesApmAvailabilityAsCreateSloRequestIndicator is a convenience function that returns IndicatorPropertiesApmAvailability wrapped in CreateSloRequestIndicator
+func IndicatorPropertiesApmAvailabilityAsCreateSloRequestIndicator(v *IndicatorPropertiesApmAvailability) CreateSloRequestIndicator {
+	return CreateSloRequestIndicator{
 		IndicatorPropertiesApmAvailability: v,
 	}
 }
 
-// IndicatorPropertiesApmLatencyAsSloResponseIndicator is a convenience function that returns IndicatorPropertiesApmLatency wrapped in SloResponseIndicator
-func IndicatorPropertiesApmLatencyAsSloResponseIndicator(v *IndicatorPropertiesApmLatency) SloResponseIndicator {
-	return SloResponseIndicator{
+// IndicatorPropertiesApmLatencyAsCreateSloRequestIndicator is a convenience function that returns IndicatorPropertiesApmLatency wrapped in CreateSloRequestIndicator
+func IndicatorPropertiesApmLatencyAsCreateSloRequestIndicator(v *IndicatorPropertiesApmLatency) CreateSloRequestIndicator {
+	return CreateSloRequestIndicator{
 		IndicatorPropertiesApmLatency: v,
 	}
 }
 
-// IndicatorPropertiesCustomKqlAsSloResponseIndicator is a convenience function that returns IndicatorPropertiesCustomKql wrapped in SloResponseIndicator
-func IndicatorPropertiesCustomKqlAsSloResponseIndicator(v *IndicatorPropertiesCustomKql) SloResponseIndicator {
-	return SloResponseIndicator{
+// IndicatorPropertiesCustomKqlAsCreateSloRequestIndicator is a convenience function that returns IndicatorPropertiesCustomKql wrapped in CreateSloRequestIndicator
+func IndicatorPropertiesCustomKqlAsCreateSloRequestIndicator(v *IndicatorPropertiesCustomKql) CreateSloRequestIndicator {
+	return CreateSloRequestIndicator{
 		IndicatorPropertiesCustomKql: v,
 	}
 }
 
-// IndicatorPropertiesCustomMetricAsSloResponseIndicator is a convenience function that returns IndicatorPropertiesCustomMetric wrapped in SloResponseIndicator
-func IndicatorPropertiesCustomMetricAsSloResponseIndicator(v *IndicatorPropertiesCustomMetric) SloResponseIndicator {
-	return SloResponseIndicator{
+// IndicatorPropertiesCustomMetricAsCreateSloRequestIndicator is a convenience function that returns IndicatorPropertiesCustomMetric wrapped in CreateSloRequestIndicator
+func IndicatorPropertiesCustomMetricAsCreateSloRequestIndicator(v *IndicatorPropertiesCustomMetric) CreateSloRequestIndicator {
+	return CreateSloRequestIndicator{
 		IndicatorPropertiesCustomMetric: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *SloResponseIndicator) UnmarshalJSON(data []byte) error {
+func (dst *CreateSloRequestIndicator) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into IndicatorPropertiesApmAvailability
@@ -114,16 +114,16 @@ func (dst *SloResponseIndicator) UnmarshalJSON(data []byte) error {
 		dst.IndicatorPropertiesCustomKql = nil
 		dst.IndicatorPropertiesCustomMetric = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(SloResponseIndicator)")
+		return fmt.Errorf("data matches more than one schema in oneOf(CreateSloRequestIndicator)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(SloResponseIndicator)")
+		return fmt.Errorf("data failed to match schemas in oneOf(CreateSloRequestIndicator)")
 	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src SloResponseIndicator) MarshalJSON() ([]byte, error) {
+func (src CreateSloRequestIndicator) MarshalJSON() ([]byte, error) {
 	if src.IndicatorPropertiesApmAvailability != nil {
 		return json.Marshal(&src.IndicatorPropertiesApmAvailability)
 	}
@@ -144,7 +144,7 @@ func (src SloResponseIndicator) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SloResponseIndicator) GetActualInstance() interface{} {
+func (obj *CreateSloRequestIndicator) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -168,38 +168,38 @@ func (obj *SloResponseIndicator) GetActualInstance() interface{} {
 	return nil
 }
 
-type NullableSloResponseIndicator struct {
-	value *SloResponseIndicator
+type NullableCreateSloRequestIndicator struct {
+	value *CreateSloRequestIndicator
 	isSet bool
 }
 
-func (v NullableSloResponseIndicator) Get() *SloResponseIndicator {
+func (v NullableCreateSloRequestIndicator) Get() *CreateSloRequestIndicator {
 	return v.value
 }
 
-func (v *NullableSloResponseIndicator) Set(val *SloResponseIndicator) {
+func (v *NullableCreateSloRequestIndicator) Set(val *CreateSloRequestIndicator) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSloResponseIndicator) IsSet() bool {
+func (v NullableCreateSloRequestIndicator) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSloResponseIndicator) Unset() {
+func (v *NullableCreateSloRequestIndicator) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSloResponseIndicator(val *SloResponseIndicator) *NullableSloResponseIndicator {
-	return &NullableSloResponseIndicator{value: val, isSet: true}
+func NewNullableCreateSloRequestIndicator(val *CreateSloRequestIndicator) *NullableCreateSloRequestIndicator {
+	return &NullableCreateSloRequestIndicator{value: val, isSet: true}
 }
 
-func (v NullableSloResponseIndicator) MarshalJSON() ([]byte, error) {
+func (v NullableCreateSloRequestIndicator) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSloResponseIndicator) UnmarshalJSON(src []byte) error {
+func (v *NullableCreateSloRequestIndicator) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

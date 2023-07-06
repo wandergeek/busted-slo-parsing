@@ -109,6 +109,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "404":
           content:
             application/json:
@@ -166,6 +172,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "409":
           content:
             application/json:
@@ -222,6 +234,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "404":
           content:
@@ -282,6 +300,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "404":
           content:
@@ -348,6 +372,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "404":
           content:
@@ -468,6 +498,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "404":
           content:
             application/json:
@@ -524,6 +560,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "409":
           content:
@@ -584,6 +626,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "404":
           content:
             application/json:
@@ -643,6 +691,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "404":
           content:
@@ -710,6 +764,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "404":
           content:
             application/json:
@@ -767,6 +827,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
         "404":
           content:
             application/json:
@@ -823,6 +889,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/401_response'
+          description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
           description: Unauthorized response
         "404":
           content:
@@ -882,6 +954,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/401_response'
           description: Unauthorized response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_response'
+          description: Unauthorized response
       summary: Retrieves the historical summary for a list of SLOs
       tags:
       - slo
@@ -927,6 +1005,39 @@ components:
         example: 9c235211-6834-11ea-a78c-6feb38a34414
         type: string
       style: simple
+  responses:
+    slo_response:
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                description: The identifier of the SLO.
+                example: 8853df00-ae2e-11ed-90af-09bb6422b258
+                type: string
+              name:
+                description: The name of the SLO.
+                example: My Service SLO
+                type: string
+              description:
+                description: The description of the SLO.
+                example: My SLO description
+                type: string
+              indicator:
+                discriminator:
+                  mapping:
+                    sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
+                    sli.apm.transactionErrorRate: '#/components/schemas/indicator_properties_apm_availability'
+                    sli.apm.transactionDuration: '#/components/schemas/indicator_properties_apm_latency'
+                    sli.metric.custom: '#/components/schemas/indicator_properties_custom_metric'
+                  propertyName: type
+                oneOf:
+                - $ref: '#/components/schemas/indicator_properties_custom_kql'
+                - $ref: '#/components/schemas/indicator_properties_apm_availability'
+                - $ref: '#/components/schemas/indicator_properties_apm_latency'
+                - $ref: '#/components/schemas/indicator_properties_custom_metric'
+            type: object
+      description: A response describing a single SLO resource
   schemas:
     time_window_rolling:
       description: Defines properties for rolling time window
@@ -1190,6 +1301,25 @@ components:
       properties:
         statusCode:
           example: 401
+          type: number
+        error:
+          example: Unauthorized
+          type: string
+        message:
+          example: "[security_exception\n\tRoot causes:\n\t\tsecurity_exception: unable\
+            \ to authenticate user [elastics] for REST request [/_security/_authenticate]]:\
+            \ unable to authenticate user [elastics] for REST request [/_security/_authenticate]"
+          type: string
+      required:
+      - error
+      - message
+      - statusCode
+      title: Unauthorized
+      type: object
+    "403_response":
+      properties:
+        statusCode:
+          example: 403
           type: number
         error:
           example: Unauthorized
@@ -1599,7 +1729,7 @@ components:
           description: A description for the SLO.
           type: string
         indicator:
-          $ref: '#/components/schemas/slo_response_indicator'
+          $ref: '#/components/schemas/create_slo_request_indicator'
         timeWindow:
           $ref: '#/components/schemas/slo_response_timeWindow'
         budgetingMethod:
@@ -1639,7 +1769,7 @@ components:
           description: A description for the SLO.
           type: string
         indicator:
-          $ref: '#/components/schemas/slo_response_indicator'
+          $ref: '#/components/schemas/create_slo_request_indicator'
         timeWindow:
           $ref: '#/components/schemas/slo_response_timeWindow'
         budgetingMethod:
@@ -1879,6 +2009,13 @@ components:
       - total
       type: object
     slo_response_indicator:
+      discriminator:
+        mapping:
+          sli.kql.custom: '#/components/schemas/indicator_properties_custom_kql'
+          sli.apm.transactionErrorRate: '#/components/schemas/indicator_properties_apm_availability'
+          sli.apm.transactionDuration: '#/components/schemas/indicator_properties_apm_latency'
+          sli.metric.custom: '#/components/schemas/indicator_properties_custom_metric'
+        propertyName: type
       oneOf:
       - $ref: '#/components/schemas/indicator_properties_custom_kql'
       - $ref: '#/components/schemas/indicator_properties_apm_availability'
@@ -1888,6 +2025,12 @@ components:
       oneOf:
       - $ref: '#/components/schemas/time_window_rolling'
       - $ref: '#/components/schemas/time_window_calendar_aligned'
+    create_slo_request_indicator:
+      oneOf:
+      - $ref: '#/components/schemas/indicator_properties_custom_kql'
+      - $ref: '#/components/schemas/indicator_properties_apm_availability'
+      - $ref: '#/components/schemas/indicator_properties_apm_latency'
+      - $ref: '#/components/schemas/indicator_properties_custom_metric'
     Historical_summary_response_inner:
       properties:
         date:
